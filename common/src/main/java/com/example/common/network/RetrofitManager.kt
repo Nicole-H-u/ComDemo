@@ -1,7 +1,7 @@
 package com.example.common.network
 
 import android.util.Log
-import com.example.module.network.config.LocalCookieJar
+import com.example.common.network.config.LocalCookieJar
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -20,12 +20,7 @@ object RetrofitManager {
         .retryOnConnectionFailure(true)
         .followRedirects(false)
         .cookieJar(LocalCookieJar())
-        .addInterceptor(HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
-            override fun log(message: String) {
-                Log.d(TAG, "log: $message")
-            }
-
-        }).setLevel(HttpLoggingInterceptor.Level.BODY)).build()
+        .addInterceptor(HttpLoggingInterceptor { message -> Log.d(TAG, "log: $message") }.setLevel(HttpLoggingInterceptor.Level.BODY)).build()
 
     private var mRetrofit: Retrofit? = null
 

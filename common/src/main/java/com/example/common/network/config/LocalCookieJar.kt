@@ -1,4 +1,4 @@
-package com.example.module.network.config
+package com.example.common.network.config
 
 import okhttp3.Cookie
 import okhttp3.CookieJar
