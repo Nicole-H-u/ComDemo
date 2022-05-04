@@ -1,6 +1,7 @@
 package com.example.comdemo.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -16,6 +17,7 @@ import android.widget.ProgressBar
 import android.widget.Toast
 
 import com.example.comdemo.R
+import com.example.comdemo.ui.TestActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -29,6 +31,7 @@ class LoginActivity : AppCompatActivity() {
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
+        val test = findViewById<Button>(R.id.test)
         val loading = findViewById<ProgressBar>(R.id.loading)
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
@@ -93,6 +96,11 @@ class LoginActivity : AppCompatActivity() {
             login.setOnClickListener {
                 loading.visibility = View.VISIBLE
                 loginViewModel.login(username.text.toString(), password.text.toString())
+            }
+
+            test.setOnClickListener {
+                var intent = Intent(this@LoginActivity, TestActivity::class.java)
+                this@LoginActivity.startActivity(intent)
             }
         }
     }
