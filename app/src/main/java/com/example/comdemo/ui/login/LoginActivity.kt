@@ -9,6 +9,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
@@ -18,6 +19,12 @@ import android.widget.Toast
 
 import com.example.comdemo.R
 import com.example.comdemo.ui.TestActivity
+import com.example.common.network.RetrofitManager
+import com.example.common.network.TestResponse
+import com.example.common.network.TestService
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
@@ -99,7 +106,26 @@ class LoginActivity : AppCompatActivity() {
             }
 
             test.setOnClickListener {
+                var testString = "failed"
+                val appService = RetrofitManager.initRetrofit().getService(TestService::class.java)
+                appService.getData().enqueue(object : Callback<TestResponse> {
+                    override fun onResponse(
+                        call: Call<TestResponse>,
+                        response: Response<TestResponse>
+                    ) {
+                        val testData = response.body()
+                        if (testData != null) {
+                            testString = testData.data[0].name
+                            Log.e("测试",testString)
+                        }
+                    }
+
+                    override fun onFailure(call: Call<TestResponse>, t: Throwable) {
+                        t.printStackTrace()
+                    }
+                })
                 var intent = Intent(this@LoginActivity, TestActivity::class.java)
+                    .putExtra("textString",testString)
                 this@LoginActivity.startActivity(intent)
             }
         }

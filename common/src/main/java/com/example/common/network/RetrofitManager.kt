@@ -27,7 +27,7 @@ object RetrofitManager {
 
     fun initRetrofit(): RetrofitManager {
         mRetrofit = Retrofit.Builder()
-            .baseUrl("https://www.wanandroid.com")
+            .baseUrl("https://www.wanandroid.com/")
             .client(mOkClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
