@@ -4,6 +4,9 @@ import android.util.Log
 import com.example.common.network.config.LocalCookieJar
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -40,5 +43,22 @@ object RetrofitManager {
         } else {
             return mRetrofit!!.create(serviceClass)
         }
+    }
+
+     fun getData(testService: TestService):TestResponse {
+        var data= TestResponse(listOf (TestResponse.Data("", "")))
+        testService.getData().enqueue(object : Callback<TestResponse> {
+            override fun onResponse(call: Call<TestResponse>, response: Response<TestResponse>) {
+                data = response.body()!!
+                Log.e("Manager测试成功",data.toString())
+            }
+
+            override fun onFailure(call: Call<TestResponse>, t: Throwable) {
+                t.printStackTrace()
+                Log.e("Manager测试失败",data.toString())
+            }
+        })
+        Log.e("Manager测试",data.toString())
+        return data
     }
 }

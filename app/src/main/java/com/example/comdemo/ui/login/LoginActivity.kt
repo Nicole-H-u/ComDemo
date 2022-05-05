@@ -106,24 +106,10 @@ class LoginActivity : AppCompatActivity() {
             }
 
             test.setOnClickListener {
-                var testString = "failed"
-                val appService = RetrofitManager.initRetrofit().getService(TestService::class.java)
-                appService.getData().enqueue(object : Callback<TestResponse> {
-                    override fun onResponse(
-                        call: Call<TestResponse>,
-                        response: Response<TestResponse>
-                    ) {
-                        val testData = response.body()
-                        if (testData != null) {
-                            testString = testData.data[0].name
-                            Log.e("测试",testString)
-                        }
-                    }
 
-                    override fun onFailure(call: Call<TestResponse>, t: Throwable) {
-                        t.printStackTrace()
-                    }
-                })
+                val appService = RetrofitManager.initRetrofit().getService(TestService::class.java)
+                val testString = RetrofitManager.getData(appService).toString()
+                Log.e("测试",testString)
                 var intent = Intent(this@LoginActivity, TestActivity::class.java)
                     .putExtra("textString",testString)
                 this@LoginActivity.startActivity(intent)
