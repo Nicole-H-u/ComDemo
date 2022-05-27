@@ -93,8 +93,12 @@ abstract class IStateObserver<T>(view: View?) : Observer<BaseResp<T>>, Callback.
 
             DataState.STATE_FAILED, DataState.STATE_ERROR -> {
                 //请求错误
-                t.error?.let { onError(it)
-                    Log.d(TAG, "onChanged: aaaaaaaaaa state")}
+                if (t.error != null) {
+                    onError(t.error)
+                } else {
+                    onFail(t.data)
+                }
+//                t.error?.let { onError(it) }
             }
             else -> {
             }
@@ -125,6 +129,13 @@ abstract class IStateObserver<T>(view: View?) : Observer<BaseResp<T>>, Callback.
      * 请求错误
      */
     open fun onError(e: Throwable?) {
+
+    }
+
+    /**
+     * 请求失败
+     */
+    open fun onFail(data: T?) {
 
     }
 

@@ -43,9 +43,12 @@ class LoginActivity : BaseVmActivity<ActivityLoginBinding>() {
                 finish()
             }
 
+            override fun onFail(data: LoginResp?) {
+                showToast("密码或账号不匹配")
+            }
+
             override fun onError(e: Throwable?) {
-                showToast("登录失败")
-                Log.d(TAG, "onError: aaaaaaaaaaa 失败")
+
             }
 
             override fun onReload(v: View?) {
