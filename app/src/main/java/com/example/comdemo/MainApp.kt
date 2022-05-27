@@ -15,6 +15,7 @@ import com.kingja.loadsir.core.LoadSir
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
 @ExperimentalPagingApi
 class MainApp : Application() {
@@ -35,7 +36,7 @@ class MainApp : Application() {
     //koin
     private fun initKoin() {
         startKoin {
-            androidLogger()
+            androidLogger(Level.NONE)
             androidContext(this@MainApp)
             modules(modules)
         }
