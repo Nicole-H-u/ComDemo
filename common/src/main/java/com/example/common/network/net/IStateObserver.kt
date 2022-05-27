@@ -7,7 +7,8 @@ import androidx.lifecycle.Observer
 import com.example.common.loadsir.EmptyCallback
 import com.example.common.loadsir.ErrorCallback
 import com.example.common.loadsir.LoadingCallback
-import com.example.common.network.BaseModel
+
+import com.example.common.network.BaseResp
 import com.example.common.network.DataState
 import com.example.common.utils.ToastUtil
 import com.google.gson.JsonParseException
@@ -24,13 +25,13 @@ import java.net.ConnectException
 
 private const val TAG = "IStateObserver"
 
-abstract class IStateObserver<T>(view: View?) : Observer<BaseModel<T>>, Callback.OnReloadListener {
+abstract class IStateObserver<T>(view: View?) : Observer<BaseResp<T>>, Callback.OnReloadListener {
     private var mLoadService: LoadService<Any>? = null
 
     init {
         if (view != null) {
             mLoadService = LoadSir.getDefault().register(view, this,
-                Convertor<BaseModel<T>> { t ->
+                Convertor<BaseResp<T>> { t ->
                     var resultCode: Class<out Callback> = SuccessCallback::class.java
 
                     when (t?.dataState) {
@@ -76,7 +77,7 @@ abstract class IStateObserver<T>(view: View?) : Observer<BaseModel<T>>, Callback
     }
 
 
-    override fun onChanged(t: BaseModel<T>) {
+    override fun onChanged(t: BaseResp<T>) {
         Log.d(TAG, "onChanged: ${t.dataState}")
 
         when (t.dataState) {
