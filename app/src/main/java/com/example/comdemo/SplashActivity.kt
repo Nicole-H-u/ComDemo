@@ -11,9 +11,9 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
 
     override fun initData(savedInstanceState: Bundle?) {
         Handler().postDelayed(Runnable {
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            finish()}, 3000)
+            finish()}, 1000)
     }
 
     override fun getLayoutId(): Int = R.layout.activity_splash

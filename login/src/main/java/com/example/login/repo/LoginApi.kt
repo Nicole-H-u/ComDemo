@@ -7,13 +7,6 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
 interface LoginApi {
-    /**
-     * 注册
-     */
-    @FormUrlEncoded
-    @POST("user/register")
-    suspend fun register(@Field("username") username: String,@Field("password") password: String
-                         ,@Field("repassword") repassword: String) : BaseResp<LoginResp>
 
     /**
      * 登录

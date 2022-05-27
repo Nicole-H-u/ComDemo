@@ -1,10 +1,9 @@
 package com.example.login.view
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import com.alibaba.android.arouter.facade.annotation.Route
-import com.alibaba.android.arouter.launcher.ARouter
 import com.example.common.base.BaseVmActivity
 import com.example.common.network.net.IStateObserver
 import com.example.common.support.Constants
@@ -26,19 +25,8 @@ class LoginActivity : BaseVmActivity<ActivityLoginBinding>() {
     private val mViewModel: LoginViewModel by viewModel()
 
     override fun initData() {
-        initToolbar()
         initListener()
         registerObserve()
-    }
-
-    private fun initToolbar() {
-        mBinding?.run {
-            setToolbarBackIcon(llToolbarLogin.ivBack, R.drawable.ic_back_clear)
-            setToolbarTitle(llToolbarLogin.tvTitle, "登录")
-            llToolbarLogin.ivBack.setOnClickListener {
-                finish()
-            }
-        }
     }
 
     private fun registerObserve() {
@@ -53,6 +41,11 @@ class LoginActivity : BaseVmActivity<ActivityLoginBinding>() {
                 LiveDataBus.get().with(KEY_LIVEDATA_BUS_LOGIN)
                     .postValue(data)
                 finish()
+            }
+
+            override fun onError(e: Throwable?) {
+                showToast("登录失败")
+                Log.d(TAG, "onError: aaaaaaaaaaa 失败")
             }
 
             override fun onReload(v: View?) {

@@ -91,7 +91,7 @@ open class BaseRepository {
                     //TODO: 数据为空,结构变化时需要修改判空条件
                     baseResp.dataState = DataState.STATE_EMPTY
                 } else {
-                    //请求成功并且数据为空的情况下，为STATE_SUCCESS
+                    //请求成功并且数据不为空的情况下，为STATE_SUCCESS
                     baseResp.dataState = DataState.STATE_SUCCESS
                 }
 
