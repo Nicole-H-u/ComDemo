@@ -6,11 +6,6 @@ import com.example.common.support.SingleLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-/**
- * @date：2021/6/11
- * @author fuusy
- * @instruction：
- */
 open class BaseViewModel : ViewModel() {
      val loadingLiveData = SingleLiveData<Boolean>()
 
